@@ -11,6 +11,8 @@ import java.util.Optional;
 @Table(name = "students")
 @Entity(name = "student")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
