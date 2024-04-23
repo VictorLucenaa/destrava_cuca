@@ -1,7 +1,6 @@
 package com.destravaCuca.domain.student;
 
-import com.destravaCuca.dto.CreateStudentDTO;
-import com.destravaCuca.dto.UpdateStudentDTO;
+import com.destravaCuca.dto.student.StudentDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,12 +20,13 @@ public class Student {
     private String middleName;
 
     private String gender;
+    @Column(unique=true)
     private String phone;
     private LocalDate dateOfBirth;
     private String schoolGrade;
     private boolean active;
 
-    public Student(CreateStudentDTO newStudent){
+    public Student(StudentDTO newStudent){
         this.firstName = newStudent.firstName();
         this.middleName = newStudent.middleName();
         this.gender = newStudent.gender();
@@ -39,14 +39,18 @@ public class Student {
 
 
 
-    public void updateStudent(UpdateStudentDTO updatedStudent){
-        Optional.ofNullable(updatedStudent.firstName()).ifPresent(this::setFirstName);
-        Optional.ofNullable(updatedStudent.middleName()).ifPresent(this::setMiddleName);
-        Optional.ofNullable(updatedStudent.gender()).ifPresent(this::setGender);
-        Optional.ofNullable(updatedStudent.phone()).ifPresent(this::setPhone);
-        Optional.ofNullable(updatedStudent.dateOfBirth()).ifPresent(this::setDateOfBirth);
-        Optional.ofNullable(updatedStudent.schoolGrade()).ifPresent(this::setSchoolGrade);
+    public void updateStudent(StudentDTO updatedStudent) {
+        this.firstName = updatedStudent.firstName() != null ? updatedStudent.firstName() : this.firstName;
+        this.middleName = updatedStudent.middleName() != null ? updatedStudent.middleName() : this.middleName;
+        this.gender = updatedStudent.gender() != null ? updatedStudent.gender() : this.gender;
+        this.phone = updatedStudent.phone() != null ? updatedStudent.phone() : this.phone;
+        this.dateOfBirth = updatedStudent.dateOfBirth() != null ? updatedStudent.dateOfBirth() : this.dateOfBirth;
+        this.schoolGrade = updatedStudent.schoolGrade() != null ? updatedStudent.schoolGrade() : this.schoolGrade;
+        this.active = true;
     }
+
+
+
 
     public void disableStudent(){
         this.active = false;

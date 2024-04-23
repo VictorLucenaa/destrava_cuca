@@ -1,80 +1,71 @@
 package com.destravaCuca.controller;
 
 import com.destravaCuca.domain.student.Student;
-import com.destravaCuca.dto.CreateStudentDTO;
-import com.destravaCuca.dto.StudentDetailDTO;
-import com.destravaCuca.dto.UpdateStudentDTO;
-import com.destravaCuca.repository.StudentsRepository;
+import com.destravaCuca.dto.student.StudentDTO;
+import com.destravaCuca.service.StudentService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/students")
 public class StudentController {
 
     @Autowired
-    private StudentsRepository studentsRepository;
+    private StudentService studentService;
 
     @PostMapping
     @Transactional
-public ResponseEntity<String> createStudent(@RequestBody @Valid CreateStudentDTO newStudentData){
-    Student student = new Student(newStudentData);
-    studentsRepository.save(student);
-    return ResponseEntity.status(201).body("Aluno criado com sucesso!");
+public ResponseEntity<Student> createStudent(@RequestBody @Valid StudentDTO newStudentData){
+    Student newStudent = studentService.createStudent(newStudentData);
+    return new ResponseEntity<>(newStudent, HttpStatus.CREATED);
 }
 
 @GetMapping
     public ResponseEntity<List<Student>> listStudents(){
-        return ResponseEntity.ok(studentsRepository.findAllByActiveTrue().stream()
-                .sorted(Comparator.comparing(Student::getId)).collect(Collectors.toList()));
+        List<Student> students = studentService.getAllStudents();
+        return new ResponseEntity<>(students, HttpStatus.OK);
 }
 
-@PutMapping
+@PutMapping("update/{id}")
     @Transactional
-    public ResponseEntity<UpdateStudentDTO> updateStudent (@RequestBody @Valid UpdateStudentDTO updatedStudent){
-        var studentToUpdate = studentsRepository.getReferenceById(updatedStudent.id());
-        studentToUpdate.updateStudent(updatedStudent);
-        return ResponseEntity.status(201).body(new UpdateStudentDTO(studentToUpdate));
+    public ResponseEntity<StudentDTO> updateStudent (@PathVariable Long id, @RequestBody @Valid StudentDTO updatedStudent){
+        var studentToUpdate = studentService.updateStudent(id, updatedStudent);
+        return new ResponseEntity<>(studentToUpdate, HttpStatus.OK);
 }
 
 @DeleteMapping("disable/{id}")
     @Transactional
-    public ResponseEntity<String> inactivateStudent(@PathVariable Long id) {
-       var inactivatedStudent = studentsRepository.getReferenceById(id);
-       inactivatedStudent.disableStudent();
-       return ResponseEntity.ok("Estudante Desativado");
+    public ResponseEntity<Void> inactivateStudent(@PathVariable Long id) {
+       studentService.inactivateStudent(id);
+       return ResponseEntity.ok().build();
 }
 
 @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<String> deleteStudent (@PathVariable Long id) {
-
-        var deletedStudent = studentsRepository.getReferenceById(id);
-        studentsRepository.deleteById(id);
-        return ResponseEntity.ok("Usuário deletado com sucesso!");
+    public ResponseEntity<Void> deleteStudent (@PathVariable Long id) {
+       studentService.deleteStudent(id);
+        return ResponseEntity.ok().build();
 
 }
 
-@PatchMapping("/{id}")
+@PatchMapping("activate/{id}")
     @Transactional
-    public ResponseEntity<String> activateStudent(@PathVariable Long id){
-       var activatedStudent = studentsRepository.getReferenceById(id);
-       activatedStudent.enableStudent();
-        return ResponseEntity.ok("Aluno reativado com sucesso!");
+    public ResponseEntity<Void> activateStudent(@PathVariable Long id){
+       studentService.activateStudent(id);
+        return ResponseEntity.ok().build();
 }
 
-@GetMapping("/{id}")
-    public ResponseEntity<StudentDetailDTO> studentDetail (@PathVariable Long id){
-        var studentDetails = studentsRepository.getReferenceById(id);
-        return ResponseEntity.ok(new StudentDetailDTO(studentDetails));
-
-}
+//@GetMapping("/{id}")
+//    public ResponseEntity<StudentDetailDTO> studentDetail (@PathVariable Long id){
+//        var studentDetails = studentsRepository.getReferenceById(id);
+//        return ResponseEntity.ok(new StudentDetailDTO(studentDetails));
+//
+//}
 }
