@@ -1,27 +1,36 @@
 package com.destravaCuca.dto;
 
-import jakarta.validation.constraints.Future;
+import com.destravaCuca.domain.enums.GenderType;
+import com.destravaCuca.domain.student.Student;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 
 import java.time.LocalDate;
 
-public record CreateStudentDTO(
+public record StudentDTO(
 
-         long id,
-         @NotBlank
          String firstName,
-         @NotBlank
-         String middleName,
+         String lastName,
 
-         String gender,
-         @NotNull
+         @Enumerated(EnumType.STRING)
+         GenderType gender,
          String phone,
 
          @Past
          LocalDate dateOfBirth,
 
-         @NotBlank
          String schoolGrade) {
+
 }
+
+
+
+
+
+
+
+
+
