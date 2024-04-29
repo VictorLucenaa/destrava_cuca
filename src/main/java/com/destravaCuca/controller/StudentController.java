@@ -1,7 +1,7 @@
 package com.destravaCuca.controller;
 
 import com.destravaCuca.domain.student.Student;
-import com.destravaCuca.dto.student.StudentDTO;
+import com.destravaCuca.dto.StudentDTO;
 import com.destravaCuca.service.StudentService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -20,52 +20,46 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @PostMapping
+    @PostMapping("create")
     @Transactional
-public ResponseEntity<Student> createStudent(@RequestBody @Valid StudentDTO newStudentData){
-    Student newStudent = studentService.createStudent(newStudentData);
-    return new ResponseEntity<>(newStudent, HttpStatus.CREATED);
-}
+    public ResponseEntity<Student> createStudent(@RequestBody @Valid StudentDTO newStudentData) {
+        Student newStudent = studentService.createStudent(newStudentData);
+        return new ResponseEntity<>(newStudent, HttpStatus.CREATED);
+    }
 
-@GetMapping
-    public ResponseEntity<List<Student>> listStudents(){
+    @GetMapping
+    public ResponseEntity<List<Student>> listStudents() {
         List<Student> students = studentService.getAllStudents();
         return new ResponseEntity<>(students, HttpStatus.OK);
-}
+    }
 
-@PutMapping("update/{id}")
+    @PutMapping("update/{id}")
     @Transactional
-    public ResponseEntity<StudentDTO> updateStudent (@PathVariable Long id, @RequestBody @Valid StudentDTO updatedStudent){
+    public ResponseEntity<StudentDTO> updateStudent(@PathVariable Long id, @RequestBody @Valid StudentDTO updatedStudent) {
         var studentToUpdate = studentService.updateStudent(id, updatedStudent);
         return new ResponseEntity<>(studentToUpdate, HttpStatus.OK);
-}
+    }
 
-@DeleteMapping("disable/{id}")
+    @DeleteMapping("disable/{id}")
     @Transactional
     public ResponseEntity<Void> inactivateStudent(@PathVariable Long id) {
-       studentService.inactivateStudent(id);
-       return ResponseEntity.ok().build();
-}
+        studentService.inactivateStudent(id);
+        return ResponseEntity.ok().build();
+    }
 
-@DeleteMapping("/{id}")
+    @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<Void> deleteStudent (@PathVariable Long id) {
-       studentService.deleteStudent(id);
+    public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
+        studentService.deleteStudent(id);
         return ResponseEntity.ok().build();
 
-}
+    }
 
-@PatchMapping("activate/{id}")
+    @PatchMapping("activate/{id}")
     @Transactional
-    public ResponseEntity<Void> activateStudent(@PathVariable Long id){
-       studentService.activateStudent(id);
+    public ResponseEntity<Void> activateStudent(@PathVariable Long id) {
+        studentService.activateStudent(id);
         return ResponseEntity.ok().build();
-}
+    }
 
-//@GetMapping("/{id}")
-//    public ResponseEntity<StudentDetailDTO> studentDetail (@PathVariable Long id){
-//        var studentDetails = studentsRepository.getReferenceById(id);
-//        return ResponseEntity.ok(new StudentDetailDTO(studentDetails));
-//
-//}
 }

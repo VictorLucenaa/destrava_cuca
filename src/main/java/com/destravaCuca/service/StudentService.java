@@ -1,7 +1,7 @@
 package com.destravaCuca.service;
 
 import com.destravaCuca.domain.student.Student;
-import com.destravaCuca.dto.student.StudentDTO;
+import com.destravaCuca.dto.StudentDTO;
 import com.destravaCuca.repository.StudentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +38,7 @@ public class StudentService {
 
         return new StudentDTO(
                 studentToUpdate.getFirstName(),
-                studentToUpdate.getMiddleName(),
+                studentToUpdate.getLastName(),
                 studentToUpdate.getGender(),
                 studentToUpdate.getPhone(),
                 studentToUpdate.getDateOfBirth(),

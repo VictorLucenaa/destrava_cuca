@@ -1,11 +1,11 @@
 package com.destravaCuca.domain.student;
 
-import com.destravaCuca.dto.student.StudentDTO;
+import com.destravaCuca.domain.enums.GenderType;
+import com.destravaCuca.dto.StudentDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 @Table(name = "students")
 @Entity(name = "student")
@@ -17,9 +17,10 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String firstName;
-    private String middleName;
+    private String lastName;
 
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private GenderType gender;
     @Column(unique=true)
     private String phone;
     private LocalDate dateOfBirth;
@@ -28,7 +29,7 @@ public class Student {
 
     public Student(StudentDTO newStudent){
         this.firstName = newStudent.firstName();
-        this.middleName = newStudent.middleName();
+        this.lastName = newStudent.lastName();
         this.gender = newStudent.gender();
         this.phone = newStudent.phone();
         this.dateOfBirth = newStudent.dateOfBirth();
@@ -41,7 +42,7 @@ public class Student {
 
     public void updateStudent(StudentDTO updatedStudent) {
         this.firstName = updatedStudent.firstName() != null ? updatedStudent.firstName() : this.firstName;
-        this.middleName = updatedStudent.middleName() != null ? updatedStudent.middleName() : this.middleName;
+        this.lastName = updatedStudent.lastName() != null ? updatedStudent.lastName() : this.lastName;
         this.gender = updatedStudent.gender() != null ? updatedStudent.gender() : this.gender;
         this.phone = updatedStudent.phone() != null ? updatedStudent.phone() : this.phone;
         this.dateOfBirth = updatedStudent.dateOfBirth() != null ? updatedStudent.dateOfBirth() : this.dateOfBirth;
