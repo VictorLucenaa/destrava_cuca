@@ -1,10 +1,9 @@
 package com.destravaCuca.domain.user;
 
-import com.destravaCuca.dto.user.UserDTO;
+import com.destravaCuca.domain.enums.UserType;
+import com.destravaCuca.dto.UserDTO;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Optional;
 
 @Entity(name = "users")
 @Table(name = "users")

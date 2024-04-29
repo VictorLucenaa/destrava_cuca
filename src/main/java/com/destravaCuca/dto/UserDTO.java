@@ -1,6 +1,6 @@
-package com.destravaCuca.dto.user;
+package com.destravaCuca.dto;
 
-import com.destravaCuca.domain.user.UserType;
+import com.destravaCuca.domain.enums.UserType;
 
 public record UserDTO(
 
@@ -8,5 +8,7 @@ public record UserDTO(
         String lastName,
         String email,
         String password,
-        UserType userType) {
+        UserType userType
+
+        ) {
 }

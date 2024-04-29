@@ -1,8 +1,8 @@
 package com.destravaCuca.service;
 
 import com.destravaCuca.domain.user.User;
-import com.destravaCuca.domain.user.UserType;
-import com.destravaCuca.dto.user.UserDTO;
+import com.destravaCuca.domain.enums.UserType;
+import com.destravaCuca.dto.UserDTO;
 import com.destravaCuca.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

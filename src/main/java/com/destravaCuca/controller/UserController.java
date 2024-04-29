@@ -1,7 +1,7 @@
 package com.destravaCuca.controller;
 
 import com.destravaCuca.domain.user.User;
-import com.destravaCuca.dto.user.UserDTO;
+import com.destravaCuca.dto.UserDTO;
 import com.destravaCuca.service.UserService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -19,7 +19,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
+    @PostMapping("create")
     @Transactional
     public ResponseEntity<User> createUser(@RequestBody @Valid UserDTO user){
        User newUser = userService.createUser(user);

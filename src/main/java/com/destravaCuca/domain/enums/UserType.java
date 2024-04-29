@@ -1,4 +1,4 @@
-package com.destravaCuca.domain.user;
+package com.destravaCuca.domain.enums;
 
 public enum UserType {
     ADMIN,
