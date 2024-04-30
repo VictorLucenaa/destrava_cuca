@@ -31,4 +31,11 @@ public class SchoolClassController {
         List<SchoolClass> schoolClasses = this.schoolClassService.getAllSchoolClasses();
         return new ResponseEntity<>(schoolClasses, HttpStatus.OK);
     }
+
+    @PutMapping("/class/{id}/update")
+    @Transactional
+    public ResponseEntity<String> updateClass (@PathVariable Long id, @RequestBody @Valid SchoolClassDTO updatedSchoolClassData){
+        this.schoolClassService.updateSchoolClass(id, updatedSchoolClassData);
+        return new ResponseEntity<>("Aula alterada com sucesso!", HttpStatus.OK);
+    }
 }
