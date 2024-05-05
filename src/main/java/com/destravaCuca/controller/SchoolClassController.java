@@ -26,7 +26,7 @@ public class SchoolClassController {
     return new ResponseEntity<>(newSchool, HttpStatus.CREATED);
     }
 
-    @GetMapping("/allClasses")
+    @GetMapping("/all-classes")
     public ResponseEntity<List<SchoolClass>> getSchoolClasses(){
         List<SchoolClass> schoolClasses = this.schoolClassService.getAllSchoolClasses();
         return new ResponseEntity<>(schoolClasses, HttpStatus.OK);
