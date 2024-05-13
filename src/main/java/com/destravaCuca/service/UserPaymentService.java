@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserPaymentService {
@@ -14,11 +15,14 @@ public class UserPaymentService {
     @Autowired
    private UserPaymentsRepository userPaymentsRepository;
 
+
+    // method that saves a payment in the database
     public void saveNewPayment(UserPayment data){
     this.userPaymentsRepository.save(data);
     }
 
-    public UserPayment findPayment(Long id){
+    // returns a UserPayment based on his ID or throws an exception
+    public UserPayment findPayment(UUID id){
         return userPaymentsRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Pagamento não encontrado!"));
     }
@@ -29,7 +33,7 @@ public class UserPaymentService {
         return newPayment;
     }
 
-    public List<UserPayment> getUserPaymentsById(Long id) throws Exception{
+    public List<UserPayment> getUserPaymentsById(UUID id) throws Exception{
       try {
        return userPaymentsRepository.findBySenderId(id);
       }catch (RuntimeException exception){
@@ -38,7 +42,7 @@ public class UserPaymentService {
       }
 
 
-    public void deleteUserPayment(Long id){
+    public void deleteUserPayment(UUID id){
       this.userPaymentsRepository.deleteById(id);
     }
 }

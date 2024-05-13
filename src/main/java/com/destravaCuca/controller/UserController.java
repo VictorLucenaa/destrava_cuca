@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -36,14 +37,14 @@ public class UserController {
 
     @PatchMapping("disable/{id}")
     @Transactional
-    public ResponseEntity<Void> inactivateUser (@PathVariable Long id){
+    public ResponseEntity<Void> inactivateUser (@PathVariable UUID id){
         userService.inactivateUser(id);
         return ResponseEntity.ok().build();
     }
 
     @PatchMapping("activate/{id}")
     @Transactional
-    public ResponseEntity<Void> activateUser (@PathVariable Long id){
+    public ResponseEntity<Void> activateUser (@PathVariable UUID id){
         userService.activateUser(id);
         return ResponseEntity.ok().build();
     }

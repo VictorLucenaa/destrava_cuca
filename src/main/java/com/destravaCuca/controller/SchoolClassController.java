@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/school_classes")
@@ -34,7 +35,7 @@ public class SchoolClassController {
 
     @PutMapping("/class/{id}/update")
     @Transactional
-    public ResponseEntity<String> updateClass (@PathVariable Long id, @RequestBody @Valid SchoolClassDTO updatedSchoolClassData){
+    public ResponseEntity<String> updateClass (@PathVariable UUID id, @RequestBody @Valid SchoolClassDTO updatedSchoolClassData){
         this.schoolClassService.updateSchoolClass(id, updatedSchoolClassData);
         return new ResponseEntity<>("Aula alterada com sucesso!", HttpStatus.OK);
     }
