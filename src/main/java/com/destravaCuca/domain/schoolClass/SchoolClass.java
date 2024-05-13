@@ -13,6 +13,7 @@ import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Entity(name = "classes")
 @Table(name = "classes")
@@ -22,8 +23,8 @@ import java.util.List;
 @NoArgsConstructor
 public class SchoolClass {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String classSubject;
 
     private String classContent;

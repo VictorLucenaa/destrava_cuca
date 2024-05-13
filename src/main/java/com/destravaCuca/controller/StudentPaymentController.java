@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/student-payments")
@@ -33,7 +34,7 @@ public class StudentPaymentController {
 
     @DeleteMapping("/delete-payment/{id}")
     @Transactional
-    public ResponseEntity<String> deletePayment(@PathVariable Long id){
+    public ResponseEntity<String> deletePayment(@PathVariable UUID id){
         deletePayment(id);
         return new ResponseEntity<>("Pagamento excluído com sucesso!", HttpStatus.OK);
     }

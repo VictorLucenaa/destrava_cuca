@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class SchoolClassService {
@@ -39,12 +40,13 @@ public class SchoolClassService {
     }
 
     //return a schoolClass by the ID
-    public SchoolClass getSchoolClass(Long id){
-        return this.SchoolClassRepository.findById(id).orElseThrow(() -> new RuntimeException("Aula não encontrada!"));
+    public SchoolClass getSchoolClass(UUID id){
+        return this.SchoolClassRepository.getReferenceById(id)
+                .orElseThrow(() -> new RuntimeException("Aula não encontrada!"));
     }
 
     //update a schoolClass
-    public void updateSchoolClass(Long schoolClassId,SchoolClassDTO updatedSchoolClassData){
+    public void updateSchoolClass(UUID schoolClassId,SchoolClassDTO updatedSchoolClassData){
         var updatedSchoolClass = getSchoolClass(schoolClassId);
          updatedSchoolClass.updateClass(updatedSchoolClassData);
     }
