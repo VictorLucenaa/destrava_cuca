@@ -1,6 +1,7 @@
 package com.destravaCuca.domain.enums;
 
-public enum UserType {
+public enum UserRole {
     ADMIN,
     TEACHER
+
 }

@@ -20,14 +20,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("create")
+
+
+    @PostMapping("/create")
     @Transactional
-    public ResponseEntity<User> createUser(@RequestBody @Valid UserDTO user){
-       User newUser = userService.createUser(user);
-       return  new ResponseEntity<>(newUser, HttpStatus.CREATED);
+    public ResponseEntity<Void> createUser(@RequestBody @Valid UserDTO userDTO){
+      userService.createUser(userDTO);
+       return  new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping
+
+    @GetMapping("/all-users")
     public ResponseEntity<List<User>> getUsers(){
         List<User> allUsers = userService.getAllUsers();
         return new ResponseEntity<>(allUsers, HttpStatus.OK);
@@ -41,7 +44,6 @@ public class UserController {
         userService.inactivateUser(id);
         return ResponseEntity.ok().build();
     }
-
     @PatchMapping("activate/{id}")
     @Transactional
     public ResponseEntity<Void> activateUser (@PathVariable UUID id){
