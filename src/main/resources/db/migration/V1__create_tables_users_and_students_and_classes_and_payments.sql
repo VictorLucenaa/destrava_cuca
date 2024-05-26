@@ -5,10 +5,9 @@ CREATE TABLE users (
     first_name VARCHAR,
     last_name VARCHAR,
     date_of_birth DATE,
-    document VARCHAR UNIQUE,
     email VARCHAR UNIQUE,
     password VARCHAR,
-    user_type VARCHAR CHECK (user_type IN ('ADMIN', 'TEACHER')),
+    user_role VARCHAR CHECK (user_role IN ('ADMIN', 'TEACHER')),
     active BOOLEAN
 );
 
