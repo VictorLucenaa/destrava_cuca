@@ -2,6 +2,8 @@ package com.destravaCuca.domain.student;
 
 import com.destravaCuca.domain.enums.GenderType;
 import com.destravaCuca.dto.StudentDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,6 +18,7 @@ import java.util.UUID;
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @JsonIgnore
     private UUID id;
     private String firstName;
     private String lastName;
